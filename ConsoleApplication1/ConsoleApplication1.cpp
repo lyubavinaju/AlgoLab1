@@ -264,7 +264,6 @@ int main()
 
 			printCityInformation(city);
 			std::cout << std::endl;
-			int allPeople = city.getPeople().getAll();
 
 			city.setAcreCost(getRandIntInRange(MIN_ACRE_COST, MAX_ACRE_COST));
 			city.setWheatPerAcre(getRandIntInRange(MIN_WHEAT_PER_ACRE, MAX_WHEAT_PER_ACRE));
