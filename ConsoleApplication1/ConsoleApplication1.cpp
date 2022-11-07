@@ -56,8 +56,8 @@ public:
 void printCityInformation(City& city) {
 	std::cout << "Мой повелитель, соизволь поведать тебе\n"
 		<< "в году " << city.getYear() + 1 << " твоего высочайшего правления\n";
-	if (city.getPeople().getDead() > 0) {
-		std::cout << city.getPeople().getDead() << " человек умерли с голоду, и ";
+	if (city.getPeople().getStarvedToDeath() > 0) {
+		std::cout << city.getPeople().getStarvedToDeath() << " человек умерли с голоду, и ";
 	}
 	if (city.getPeople().getArrived() > 0) {
 		std::cout << city.getPeople().getArrived() << " человек прибыли в наш великий город; \n";
@@ -79,7 +79,7 @@ void printProgressToFile(City& city) {
 		<< city.getSize() << "\n"
 		<< city.getAcreCost() << "\n"
 		<< city.getHistory() << "\n"
-		<< city.getPeople().getDead() << "\n"
+		<< city.getPeople().getStarvedToDeath() << "\n"
 		<< city.getPeople().getArrived() << "\n"
 		<< city.getPeople().getAll() << "\n"
 		<< city.getWheat().getDead() << "\n"
@@ -196,6 +196,7 @@ void update(City& city, UserValuesDTO& userValues) {
 	if (starvedToDeath / (double)city.getPeople().getAll() > MAX_STARVED_TO_DEATH) {
 		throw std::runtime_error("More than " + std::to_string(MAX_STARVED_TO_DEATH) + " of people starved to death.");
 	}
+	city.getPeople().setStarvedToDeath(starvedToDeath);
 	city.getPeople().removeDead(starvedToDeath);
 	city.addToHistory(std::to_string(starvedToDeath / (double)city.getPeople().getAll()));
 	city.getWheat().setRest(userValues.getWheatCount());
@@ -212,6 +213,7 @@ void update(City& city, UserValuesDTO& userValues) {
 
 	city.getWheat().removeDead(calcDeadWheat(city.getWheat().getRest()));
 }
+
 void printVerdict(double L, double P) {
 	std::string message;
 	if (P > 33 && L < 7) {
@@ -226,6 +228,7 @@ void printVerdict(double L, double P) {
 	else {
 		message = "Отлично.\nФантастика! Карл Великий, Дизраэли и Джефферсон вместе не справились бы лучше\n";
 	}
+	std::cout << message;
 }
 
 int main()

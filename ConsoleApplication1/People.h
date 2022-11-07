@@ -4,7 +4,7 @@
 
 class People {
 private:
-	int dead = 0;
+	int starvedToDeath = 0;
 	int arrived = 0;
 	int all;
 public:
@@ -17,8 +17,8 @@ public:
 	int getArrived() {
 		return arrived;
 	}
-	int getDead() {
-		return dead;
+	int getStarvedToDeath() {
+		return starvedToDeath;
 	}
 	void setAll(int count) {
 		all = count;
@@ -29,10 +29,12 @@ public:
 		all += count;
 	}
 	void removeDead(int count) {
-		dead = count;
 		all -= count;
 	}
+	void setStarvedToDeath(int count) {
+		starvedToDeath = count;
+	}
 	void readProgress(std::ifstream& f) {
-		f >> dead >> arrived >> all;
+		f >> starvedToDeath >> arrived >> all;
 	}
 };
